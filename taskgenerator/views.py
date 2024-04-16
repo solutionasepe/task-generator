@@ -50,29 +50,7 @@ class TaskGeneratorAPIViews(generics.CreateAPIView):
         except Admin.DoesNotExist:
             return Response({'error':'brief not found'}, status=status.HTTP_404_NOT_FOUND)    
         
-    # def create(self, request, *args, **kwargs):
-    #     serializer = self.get_serializer(data=request.data)
-    #     serializer.is_valid(raise_exception=True)
-    #     Role = request.data.get('Role')
-    #     Industry = request.data.get('Industry')
-    #     Difficulty = request.data.get('Difficulty')
-
-    #     try:
-    #         admin = Admin.objects.get(Role=Role, Industry=Industry, Difficulty=Difficulty)
-    #         Brief = admin.Brief
-
-    #         # Save the serializer and retrieve the Brief
-    #         serializer.save(Brief=Brief)
-    #         serialized_data = serializer.data
-
-    #         # Construct the response data
-    #         response_data = {"Brief": serialized_data['Brief']}
-    #         print(response_data)
-
-    #         # Return the response
-    #         return Response(response_data)
-    #     except Admin.DoesNotExist:
-    #         return Response({'error': 'brief not found'}, status=status.HTTP_404_NOT_FOUND)
+    
 
         
         
