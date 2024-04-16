@@ -51,13 +51,8 @@ class Taskgenerator(models.Model):
     Role = models.CharField(max_length=200, choices=roles)
     Industry = models.CharField(max_length=200, choices=industries)
     Difficulty = models.CharField(max_length=200, choices=difficulties)
-    # user = models.ForeignKey(User, on_delete=models.CASCADE)
+
     Brief = models.TextField(editable=False, default='add a brief')
 
-    # def get_brief(self):
-    #     try:
-    #         admin = Admin.objects.get(Role=self.Role, Industry=self.Industry, Difficulty=self.Difficulty)
-    #         return admin.Brief
-    #     except Admin.DoesNotExist:
-    #         return "Add the required text brief"
+    
 
