@@ -13,7 +13,7 @@ class TaskGeneratorSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Taskgenerator
-        fields = ['Role', 'Industry', 'Difficulty', 'Brief']
+        fields = ['Role', 'Industry', 'Difficulty', 'Duration', 'Brief']
 
     # def create(self, validated_data):
     #     role = validated_data.get('Role')

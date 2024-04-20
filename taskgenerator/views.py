@@ -5,6 +5,7 @@ from .models import *
 from .serializers import *
 from django.http import HttpResponse
 import json
+import random
 
 # Create your views here.
 class AdminAPIViews(generics.ListCreateAPIView): 
@@ -21,13 +22,23 @@ class TaskGeneratorAPIViews(generics.CreateAPIView):
         Role = self.request.data.get('Role')
         Industry = self.request.data.get('Industry')
         Difficulty = self.request.data.get('Difficulty')
-
+        Duration = self.request.data.get('Duration')
         
         # Retrieve Admin object based on extracted data
-        admin = Admin.objects.get(Role=Role, Industry=Industry, Difficulty=Difficulty)
-        Brief = admin.Brief
+        admin = Admin.objects.filter(Role=Role, Industry=Industry, Difficulty=Difficulty, Duration=Duration)
+        # Brief = admin.Brief
 
+        #Getting the list of more than one admin instance
+        admin_list = []
+        if Admin.objects.count() > 1:
+            for admin in Admin.objects.all():
+                admin_list.append(admin)
+            admin = random.choice(admin_list)
+            Brief = admin.Brief
         # Save the serializer and retrieve the Brief
+        else:
+            admin = Admin.objects.first()
+            Brief = admin.Brief
         serializer.save(Brief=Brief)
         return super().perform_create(serializer)
     
