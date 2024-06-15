@@ -3,6 +3,8 @@ from .models import *
 from django.contrib.auth.models import User
 
 class AdminSerializer(serializers.ModelSerializer):
+    Brief = serializers.CharField(read_only=True) 
+
     class Meta:
         model = Admin
         fields = "__all__"

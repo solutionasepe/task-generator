@@ -1,6 +1,7 @@
 from django.shortcuts import render
 from rest_framework import generics, status
 from rest_framework.response import Response
+from rest_framework.exceptions import NotFound
 from .models import *
 from .serializers import *
 from django.http import HttpResponse
@@ -11,6 +12,34 @@ import random
 class AdminAPIViews(generics.ListCreateAPIView): 
     queryset = Admin.objects.all()
     serializer_class = AdminSerializer
+
+class AdminDetailsViews(generics.RetrieveAPIView):
+    queryset = Admin.objects.all()
+    serializer_class = AdminSerializer
+
+    def retrieve(self, request, *args, **kwargs):
+        instance = self.get_object()
+        serializer = self.get_serializer(instance)
+        return Response(serializer.data)
+    # Get the primary key (pk) from the kwargs
+        # pk = kwargs.get('pk')
+
+        # try:
+        #     # Retrieve the Admin object based on the primary key
+        #     admin = Admin.objects.get(pk=pk)
+            
+        #     # Extract the desired fields
+        #     role = admin.Role
+        #     industry = admin.Industry
+        #     difficulty = admin.Difficulty
+        #     duration = admin.Duration
+            
+        #     # Return a response containing only the content of the Brief field
+        #     return Response({"Brief": admin.Brief})
+        # except Admin.DoesNotExist:
+        #     raise NotFound("Admin object not found")
+            
+
 
 class TaskGeneratorAPIViews(generics.CreateAPIView):
     queryset = Taskgenerator.objects.all()
@@ -60,6 +89,9 @@ class TaskGeneratorAPIViews(generics.CreateAPIView):
             return Response(response_data)
         except Admin.DoesNotExist:
             return Response({'error':'brief not found'}, status=status.HTTP_404_NOT_FOUND)    
+        
+
+
         
     
 
